@@ -1,9 +1,11 @@
-const app = require('./src/app');
+require('dotenv').config();
+const app = require('./src/app'); 
+const connectDB = require('./src/db/connection'); 
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001; 
 
-// --- Start Server ---
-app.listen(PORT, () => {
-    console.log(`Mock Booking API running at http://localhost:${PORT}`);
-    console.log('Use Ctrl+C to stop the server.');
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Booking API running at http://localhost:${PORT}`);
+    });
 });
