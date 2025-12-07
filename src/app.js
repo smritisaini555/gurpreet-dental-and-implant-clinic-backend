@@ -2,11 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const appointmentRoutes = require('./routes/appointment.routes');
+const FRONTEND_URL = 'https://gurpreet-dental-and-implant-clinic.onrender.com';
 
 const app = express();
 
 // --- Middleware ---
-app.use(cors()); 
+app.use(cors({
+    origin: FRONTEND_URL, 
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
 app.use(bodyParser.json()); 
 
 // --- API Routes ---
