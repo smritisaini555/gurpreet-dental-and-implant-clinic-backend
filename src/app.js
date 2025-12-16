@@ -5,15 +5,25 @@ const appointmentRoutes = require('./routes/appointment.routes');
 
 // Define ALL allowed origins (Frontend deployment and local development)
 const ALLOWED_ORIGINS = [
-    'http://localhost:3000', // <-- IMPORTANT: For local React development
-    'https://gurpreet-dental-and-implant-clinic.onrender.com' // <-- Keep for any same-origin testing (e.g., if you are hosting the frontend and backend on the same service/URL)
-    // Add your actual deployed frontend URL here, e.g., 'https://your-frontend-domain.com'
+    'http://localhost:3000', // For local React development
+    'http://localhost:3001', // If the backend itself runs on 3001, add it (though usually unnecessary)
+    'https://gurpreet-dental-and-implant-clinic.onrender.com', // Your backend's own URL, if accessing from the same service/domain
+    // 💡 IMPORTANT: You MUST ADD YOUR FRONTEND'S DEPLOYED URL HERE!
+    // Example: 'https://your-frontend-dental-clinic.com' 
 ];
 
 const app = express();
 
-// --- Middleware ---
-app.use(cors());
+// --- CORS Configuration ---
+const corsOptions = {
+    // 💡 FIX: Use the array directly. The 'cors' package handles the origin checking logic internally.
+    origin: ALLOWED_ORIGINS, 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // It's good practice to list all HTTP methods you use
+    credentials: true,
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json()); 
 
 // --- API Routes ---
@@ -25,22 +35,17 @@ app.use((req, res, next) => {
     res.status(404).json({ message: "Endpoint not found." });
 });
 
+// 💡 Essential addition: General Error Handler
+app.use((err, req, res, next) => {
+    // Check if the error is specifically the CORS block error
+    if (err.message === 'Not allowed by CORS') {
+        // Send a 403 Forbidden specifically for CORS violation
+        return res.status(403).json({ success: false, message: "CORS policy violation: Access from this origin is forbidden." });
+    }
+    // Handle all other server errors (like database connection issues, parsing errors, etc.)
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+
 module.exports = app;
-
-
-// {
-//     origin: (origin, callback) => {
-//         // Allow requests with no origin (like mobile apps, postman, or curl requests)
-//         if (!origin) return callback(null, true); 
-        
-//         if (ALLOWED_ORIGINS.includes(origin)) {
-//             callback(null, true);
-//         } else {
-//             // Log the blocked origin for debugging
-//             console.log(`CORS Policy Blocked Origin: ${origin}`);
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-//     methods: ['GET', 'POST'],
-//     credentials: true
-// }
