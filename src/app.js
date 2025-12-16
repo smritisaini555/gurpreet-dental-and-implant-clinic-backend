@@ -13,22 +13,7 @@ const ALLOWED_ORIGINS = [
 const app = express();
 
 // --- Middleware ---
-app.use(cors({
-    origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps, postman, or curl requests)
-        if (!origin) return callback(null, true); 
-        
-        if (ALLOWED_ORIGINS.includes(origin)) {
-            callback(null, true);
-        } else {
-            // Log the blocked origin for debugging
-            console.log(`CORS Policy Blocked Origin: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST'],
-    credentials: true
-}));
+app.use(cors());
 app.use(bodyParser.json()); 
 
 // --- API Routes ---
@@ -41,3 +26,21 @@ app.use((req, res, next) => {
 });
 
 module.exports = app;
+
+
+// {
+//     origin: (origin, callback) => {
+//         // Allow requests with no origin (like mobile apps, postman, or curl requests)
+//         if (!origin) return callback(null, true); 
+        
+//         if (ALLOWED_ORIGINS.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             // Log the blocked origin for debugging
+//             console.log(`CORS Policy Blocked Origin: ${origin}`);
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     methods: ['GET', 'POST'],
+//     credentials: true
+// }
