@@ -8,7 +8,7 @@ const ALLOWED_ORIGINS = [
     'http://localhost:3000', // For local React development
     'http://localhost:3001', // If the backend itself runs on 3001, add it (though usually unnecessary)
     'https://gurpreet-dental-and-implant-clinic.onrender.com', // Your backend's own URL, if accessing from the same service/domain
-    'https://gurpreet-dental-and-implant-clinic-7z1xebkg7.vercel.app', // Vercel deployment URL
+    'https://gurpreet-dental-and-implant-clinic.vercel.app', // Vercel deployment URL
     // 'https://gurpreetdentalimplantcentre.com', // Primary custom domain
 ];
 
