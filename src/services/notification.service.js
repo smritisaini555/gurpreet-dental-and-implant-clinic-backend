@@ -2,10 +2,9 @@ const nodemailer = require('nodemailer');
 
 // 1. Create a transporter object using the clinic's Gmail credentials
 const transporter = nodemailer.createTransport({
-    service: 'gmail', 
     host: process.env.EMAIL_SERVICE_HOST,
     port: process.env.EMAIL_SERVICE_PORT, 
-    secure: process.env.EMAIL_SERVICE_SECURE === 'true', 
+    secure: process.env.EMAIL_SERVICE_SECURE === 'false', 
     auth: {
         user: process.env.EMAIL_SERVICE_USER,
         pass: process.env.EMAIL_SERVICE_PASS.replace(/\s+/g, ''),
@@ -13,9 +12,9 @@ const transporter = nodemailer.createTransport({
     logger: true,
     debug: true,
     // Stabilizes connection on cloud platforms like Render
-    connectionTimeout: 30000,
-    greetingTimeout: 30000,
-    socketTimeout: 30000,
+    connectionTimeout: 45000, // Increased to 45 seconds
+    greetingTimeout: 45000,
+    socketTimeout: 45000,
 });
 
 const sendAppointmentConfirmation = async (appointmentDetails) => {
