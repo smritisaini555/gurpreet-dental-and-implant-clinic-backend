@@ -10,6 +10,10 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_SERVICE_USER,
         pass: process.env.EMAIL_SERVICE_PASS,
     },
+    // Stabilizes connection on cloud platforms like Render
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
 });
 
 const sendAppointmentConfirmation = async (appointmentDetails) => {
