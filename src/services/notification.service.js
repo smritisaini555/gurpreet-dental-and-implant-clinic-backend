@@ -10,6 +10,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_SERVICE_USER,
         pass: process.env.EMAIL_SERVICE_PASS,
     },
+    logger: true,
+    debug: true,
     // Stabilizes connection on cloud platforms like Render
     connectionTimeout: 30000,
     greetingTimeout: 30000,
