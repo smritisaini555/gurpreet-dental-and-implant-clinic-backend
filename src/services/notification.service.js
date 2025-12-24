@@ -9,11 +9,6 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_SERVICE_USER,
         pass: process.env.EMAIL_SERVICE_PASS,
     },
-    tls: {
-        // This helps bypass some cloud network restrictions
-        rejectUnauthorized: false,
-        minVersion: 'TLSv1.2'
-    },
     logger: true,
     debug: true,
     // Stabilizes connection on cloud platforms like Render
