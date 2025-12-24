@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 // 1. Create a transporter object using the clinic's Gmail credentials
 const transporter = nodemailer.createTransport({
+    service: 'Gmail',
     host: process.env.EMAIL_SERVICE_HOST,
     port: process.env.EMAIL_SERVICE_PORT, 
     secure: process.env.EMAIL_SERVICE_SECURE, 
