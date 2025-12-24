@@ -9,10 +9,7 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.EMAIL_SERVICE_USER,
         pass: process.env.EMAIL_SERVICE_PASS,
-    },
-    tls: {
-        rejectUnauthorized: false // Helps bypass some local network restrictions
-    },  
+    }, 
     logger: true,
     debug: true,
     // Stabilizes connection on cloud platforms like Render
