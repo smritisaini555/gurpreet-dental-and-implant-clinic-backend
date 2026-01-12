@@ -19,6 +19,7 @@ const ALLOWED_ORIGINS = [
     'https://gurpreet-dental-and-implant-clinic.onrender.com',
     'https://gurpreet-dental-and-implant-clinic.vercel.app',
     'https://gurpreet-dental-and-implant-clinic-beta.vercel.app',
+    'https:///www.gurpreetdentalandimplantcentre.com',
 ];
 
 // 3. --- CORS CONFIGURATION ---
