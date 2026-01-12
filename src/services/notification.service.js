@@ -2,14 +2,16 @@ const nodemailer = require('nodemailer');
 
 // 1. Create a transporter object using the clinic's Gmail credentials
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
     host: process.env.EMAIL_SERVICE_HOST,
     port: process.env.EMAIL_SERVICE_PORT, 
-    secure: process.env.EMAIL_SERVICE_SECURE, 
+    secure: process.env.EMAIL_SERVICE_SECURE === true, 
     auth: {
         user: process.env.EMAIL_SERVICE_USER,
         pass: process.env.EMAIL_SERVICE_PASS,
     }, 
+    tls: {
+    rejectUnauthorized: false // Helps bypass local network handshake timeouts
+    },
     logger: true,
     debug: true,
     // Stabilizes connection on cloud platforms like Render
