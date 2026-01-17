@@ -83,7 +83,9 @@ router.post('/appointments', async (req, res) => {
         
         // 3. 🚨 NEW STEP: Send Notifications after successful save
         // We pass req.body directly as it contains all required patientInfo, date, time, and doctorId fields.
-        sendAppointmentConfirmation(req.body); 
+        console.log(`[EMAIL] Starting email notification for ${patientInfo.email}...`);
+        await sendAppointmentConfirmation(req.body); 
+        console.log(`[EMAIL] Notification finished.`);
 
         console.log(`[WRITE] BOOKED! Doctor ${doctorId} at ${time} on ${date}.`);
 
